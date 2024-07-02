@@ -11,8 +11,8 @@ const mostrarPaises = async () => {
     const countries = await fetchFlags();
     
     countries.sort((a, b) => {
-        const nameA = a.name.common.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase(); // Convertimos el nombre común del país 'a' a mayúsculas
-        const nameB = b.name.common.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase(); // Convertimos el nombre común del país 'b' a mayúsculas
+        const nameA = a.name.common.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase(); 
+        const nameB = b.name.common.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase(); 
   
         if (nameA < nameB) {
           return -1; // Si nameA es menor que nameB, a se coloca antes que b
