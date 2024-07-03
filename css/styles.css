@@ -13,12 +13,16 @@ h1 {
 
 #countries-list {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Columnas ajustables */
   gap: 10px;
   padding: 20px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  justify-items: center;
 }
 
-.country {
+.cardflags {
   list-style-type: none;
   background-color: #fff;
   border-radius: 8px;
@@ -26,10 +30,65 @@ h1 {
   padding: 10px;
   text-align: center;
   transition: transform 0.2s;
+  cursor: pointer;
+  max-width: 100%;
 }
 
-.country:hover {
+.cardflags:hover {
   transform: translateY(-5px);
+}
+
+.cardflags img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.cardflags h2 {
+  margin-top: 0;
+  font-size: 12px;
+  overflow-wrap: break-word;
+}
+
+#ficha {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+}
+
+#ficha.active {
+  display: block;
+}
+
+#ficha button {
+  position: absolute; 
+  top: 10px; 
+  right: 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+#ficha button:hover {
+  background-color: #d32f2f;
 }
 
 

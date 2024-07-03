@@ -1,4 +1,64 @@
-const listaPaises = document.getElementById('countries-list');
+/* Codigo corregido */
+
+const countriesList = document.getElementById("countries-list") 
+const divficha = document.getElementById("ficha")
+
+const getCountry = async () => { //funcion fecth
+  try {
+    const response = await fetch("https://restcountries.com/v3/all")
+    const countries = await response.json()
+    sortedCountries(countries)
+    return countries
+  } catch (err) {
+    console.log("Se ha producido un error al introducir los datos", err)
+  }
+}
+
+const sortedCountries = (countries) => { //funcion para ordenar alfabeticamente
+  countries.sort((a, b) => {
+    const nameA = a.name.common.toUpperCase()
+    const nameB = b.name.common.toUpperCase()
+    return nameA.localeCompare(nameB)
+})}
+
+getCountry().then(countries => { //llamamos al fecth y pintamos en el DOM
+  countries.forEach((country) => {
+    const template = `
+    <li class="cardflags">
+    <img src="${country.flags[0]}" alt="${country.name.common}" />
+    <h2>${country.name.common}</h2>
+    </li>
+    `
+    countriesList.innerHTML += template
+  });
+  countries.forEach((country, index) => { //una vez cargada la lista de paises, los recorremos individualmente
+    const countryElement = document.querySelectorAll('.cardflags')[index];
+    
+    countryElement.addEventListener('click', () => {
+      const fichaTemplate = `
+      <div>
+      <button onclick="closeInfo()">X</button>
+        <p>${country.name.common}</p>
+        <img src="${country.flags[0]}" alt="${country.name.common}" width=200px/>
+        <p>Capital: ${country.capital ? country.capital[0] : `${country.name.common}`}</p>
+        <p>Población: ${country.population}</p>
+        <p>Lado de la carretera: ${country.car.side === 'left' ? 'Izquierda' : 'Derecha'}</p>
+      </div>
+      `
+      divficha.innerHTML = fichaTemplate
+      divficha.classList.add("active")
+    });  
+  });
+  
+})
+
+function closeInfo () {
+  divficha.classList.remove("active")
+}
+
+/*Mi codigo cuando hice el ejercicio*/
+
+/*const listaPaises = document.getElementById('countries-list');
 
 const fetchFlags = async () => {
   const response = await fetch('https://restcountries.com/v3/all');
@@ -11,16 +71,9 @@ const mostrarPaises = async () => {
     const countries = await fetchFlags();
     
     countries.sort((a, b) => {
-        const nameA = a.name.common.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase(); 
-        const nameB = b.name.common.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase(); 
-  
-        if (nameA < nameB) {
-          return -1; // Si nameA es menor que nameB, a se coloca antes que b
-        }
-        if (nameA > nameB) {
-          return 1; // Si nameA es mayor que nameB, a se coloca después que b
-        }
-        return 0; // Si nameA y nameB son iguales, no se cambia el orden
+        const nameA = a.name.common.toUpperCase(); 
+        const nameB = b.name.common.toUpperCase(); 
+        return nameA.localeCompare(nameB)
       });
 
     countries.forEach(country => {
@@ -49,4 +102,4 @@ const mostrarPaises = async () => {
   }
 }
 
-mostrarPaises();
+mostrarPaises();*/
